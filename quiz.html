@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Which Sausage Therapy path fits</title>
+<meta name="description" content="Sausage Therapy online empire elements: dachshund-assisted calm, digital kits, Pack Circle membership, gifts, corporate resets, and giving-first bookings. Led by Emily Blue Richards." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<nav><div class="wrap nav-inner">
+  <a class="brand" href="index.html">Sausage <span>Therapy</span></a>
+  <div class="links">
+    <a href="quiz.html">Quiz</a>
+    <a href="circle.html">Pack Circle</a>
+    <a href="kits.html">Digital kits</a>
+    <a href="gift.html">Gift voucher</a>
+    <a href="corporate.html">Corporate</a>
+    <a href="retreat.html">Retreat</a>
+    <a href="ledger.html">Giving</a>
+    <a href="refer.html">Refer</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <section>
+    <div class="kicker">Lead magnet</div>
+    <h1>Which pack path fits right now?</h1>
+    <p class="lede">Sixty seconds. No account. The result recommends a real offer and prepares an enquiry Emily can answer.</p>
+    <form class="panel" id="quiz">
+      <label>What is loudest this week?</label>
+      <select id="q1"><option>I cannot switch off at night</option><option>Work team is fried</option><option>I want to gift calm to someone</option><option>I want to learn how to do this with dogs</option><option>I want a longer retreat later</option></select>
+      <label>Who is this for?</label>
+      <select id="q2"><option>Me</option><option>My family</option><option>My workplace</option><option>A client or patient pathway</option></select>
+      <label>Your email so the match can be sent</label>
+      <input id="email" type="email" required placeholder="you@email.com" />
+      <label>First name</label>
+      <input id="name" required placeholder="Name" />
+      <p><button class="btn gold" type="submit">Show my path</button></p>
+    </form>
+    <div class="panel result" id="result"></div>
+  </section>
+</main>
+<script>
+const map = {
+  "I cannot switch off at night": {offer:"Calm Pack Guide", price:"$27", href:"kits.html", why:"A short evening ritual and dachshund-paced breathing guide you can use tonight, before any in-person session."},
+  "Work team is fried": {offer:"Workplace Wiener Reset kit", price:"$97", href:"corporate.html", why:"A facilitator script, 20-minute agenda, and enquiry path for a live pack visit from $450."},
+  "I want to gift calm to someone": {offer:"Session gift voucher", price:"from $150", href:"gift.html", why:"A printable voucher for an individual healing session. You choose the amount and message."},
+  "I want to learn how to do this with dogs": {offer:"Handler intro circle", price:"$197 waitlist", href:"retreat.html", why:"A future online intro for people who want animal-assisted skills, not a clinical licence."},
+  "I want a longer retreat later": {offer:"Forevermore retreat waitlist", price:"priority list", href:"retreat.html", why:"Hinterland and farm-style longer holds, released when dates are real."}
+};
+document.getElementById("quiz").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const key = document.getElementById("q1").value;
+  const rec = map[key];
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const lead = {name, email, path:key, offer:rec.offer, at:new Date().toISOString()};
+  const leads = JSON.parse(localStorage.getItem("st-leads") || "[]");
+  leads.push(lead);
+  localStorage.setItem("st-leads", JSON.stringify(leads));
+  const mail = `mailto:emily@therapysausages.com?subject=${encodeURIComponent("Quiz lead: " + rec.offer)}&body=${encodeURIComponent(name + " <" + email + "> matched to " + rec.offer + " via " + key)}`;
+  document.getElementById("result").className = "panel result show";
+  document.getElementById("result").innerHTML = `<div class="tag">Your match</div><h2>${rec.offer} · ${rec.price}</h2><p>${rec.why}</p><p><a class="btn gold" href="${rec.href}">Open this offer</a> <a class="btn alt" href="${mail}">Email this lead to Emily</a></p>`;
+});
+</script>
+
+<footer><div class="wrap">
+  <strong>Sausage Therapy / Therapy Sausages</strong> · led by Emily Blue Richards · Gold Coast, Noosa and mobile sessions.<br />
+  Existing live bookings stay at <a href="https://therapysausages.vercel.app/">therapysausages.vercel.app</a>. Enquiries: <a href="mailto:emily@therapysausages.com">emily@therapysausages.com</a>.
+  These pages are interest and payment-request flows. A confirmed booking or digital delivery follows Emily's reply. Not a clinical diagnosis or emergency service. If you are in crisis in Australia call 000 or Lifeline 13 11 14.
+  <br />Ten percent of confirmed paid online orders on this hub is logged for dog welfare and access sessions.
+</div></footer>
+</body></html>

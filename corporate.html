@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Corporate reset calculator</title>
+<meta name="description" content="Sausage Therapy online empire elements: dachshund-assisted calm, digital kits, Pack Circle membership, gifts, corporate resets, and giving-first bookings. Led by Emily Blue Richards." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<nav><div class="wrap nav-inner">
+  <a class="brand" href="index.html">Sausage <span>Therapy</span></a>
+  <div class="links">
+    <a href="quiz.html">Quiz</a>
+    <a href="circle.html">Pack Circle</a>
+    <a href="kits.html">Digital kits</a>
+    <a href="gift.html">Gift voucher</a>
+    <a href="corporate.html">Corporate</a>
+    <a href="retreat.html">Retreat</a>
+    <a href="ledger.html">Giving</a>
+    <a href="refer.html">Refer</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <section>
+    <div class="kicker">B2B</div>
+    <h1>What a fried team actually costs.</h1>
+    <form class="panel" id="c">
+      <label>People in the room</label><input id="people" type="number" value="12" min="4" />
+      <label>Average hourly loaded cost AUD</label><input id="rate" type="number" value="65" min="20" />
+      <label>Lost focus hours you want back</label><input id="hours" type="number" value="2" min="1" step="0.5" />
+      <p><button class="btn" type="button" id="calc">Calculate</button></p>
+      <p id="out" class="lede"></p>
+      <label>Work email</label><input id="e" type="email" required />
+      <label>Organisation</label><input id="org" required />
+      <p><button class="btn gold" type="submit">Request a pack visit from $450</button></p>
+    </form>
+  </section>
+</main>
+<script>
+document.getElementById("calc").addEventListener("click", () => {
+  const people = +document.getElementById("people").value;
+  const rate = +document.getElementById("rate").value;
+  const hours = +document.getElementById("hours").value;
+  const lost = people * rate * hours;
+  document.getElementById("out").textContent = "A " + hours + " hour fog across " + people + " people is about $" + lost.toLocaleString() + ". A Sausage Therapy team visit starts at $450. The kit alone is $97 if you want the agenda before the dogs arrive.";
+});
+document.getElementById("c").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const org = document.getElementById("org").value, em = document.getElementById("e").value;
+  location.href = `mailto:emily@therapysausages.com?subject=${encodeURIComponent("Corporate reset: " + org)}&body=${encodeURIComponent(org + " " + em + " wants a pack visit. People " + document.getElementById("people").value)}`;
+});
+</script>
+
+<footer><div class="wrap">
+  <strong>Sausage Therapy / Therapy Sausages</strong> · led by Emily Blue Richards · Gold Coast, Noosa and mobile sessions.<br />
+  Existing live bookings stay at <a href="https://therapysausages.vercel.app/">therapysausages.vercel.app</a>. Enquiries: <a href="mailto:emily@therapysausages.com">emily@therapysausages.com</a>.
+  These pages are interest and payment-request flows. A confirmed booking or digital delivery follows Emily's reply. Not a clinical diagnosis or emergency service. If you are in crisis in Australia call 000 or Lifeline 13 11 14.
+  <br />Ten percent of confirmed paid online orders on this hub is logged for dog welfare and access sessions.
+</div></footer>
+</body></html>

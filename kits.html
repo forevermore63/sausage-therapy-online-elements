@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital kits</title>
+<meta name="description" content="Sausage Therapy online empire elements: dachshund-assisted calm, digital kits, Pack Circle membership, gifts, corporate resets, and giving-first bookings. Led by Emily Blue Richards." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<nav><div class="wrap nav-inner">
+  <a class="brand" href="index.html">Sausage <span>Therapy</span></a>
+  <div class="links">
+    <a href="quiz.html">Quiz</a>
+    <a href="circle.html">Pack Circle</a>
+    <a href="kits.html">Digital kits</a>
+    <a href="gift.html">Gift voucher</a>
+    <a href="corporate.html">Corporate</a>
+    <a href="retreat.html">Retreat</a>
+    <a href="ledger.html">Giving</a>
+    <a href="refer.html">Refer</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <section>
+    <div class="kicker">Digital products</div>
+    <h1>Kits that sell without a travel day.</h1>
+    <div class="grid">
+      <article class="card"><div class="tag">$27</div><h2>Calm Pack Guide</h2><p>Evening wind-down, 7 dachshund-paced prompts, and a one-page nervous-system reset. Delivered by email after payment confirmation.</p><button class="btn" data-sku="Calm Pack Guide" data-price="27">Request this kit</button></article>
+      <article class="card"><div class="tag">$97</div><h2>Workplace Wiener Reset</h2><p>20-minute team agenda, facilitator card, safety notes, and a path to book the live pack from $450.</p><button class="btn" data-sku="Workplace Wiener Reset" data-price="97">Request this kit</button></article>
+      <article class="card"><div class="tag">$47</div><h2>Family Visit Prep</h2><p>How to host a miniature pack at home: space, scent, children, and what a 45-minute session actually feels like.</p><button class="btn" data-sku="Family Visit Prep" data-price="47">Request this kit</button></article>
+    </div>
+    <form class="panel" id="buy" style="margin-top:18px">
+      <h2>Checkout request</h2>
+      <label>Kit</label><input id="sku" readonly />
+      <label>Name</label><input id="n" required />
+      <label>Email for delivery</label><input id="e" type="email" required />
+      <p><button class="btn gold" type="submit">Email payment request</button></p>
+      <p class="note">Payment is confirmed by Emily before files are sent. Ten percent of confirmed kit sales is logged on the giving ledger.</p>
+    </form>
+  </section>
+</main>
+<script>
+document.querySelectorAll("[data-sku]").forEach(b => b.addEventListener("click", () => {
+  document.getElementById("sku").value = b.dataset.sku + " $" + b.dataset.price;
+  document.getElementById("buy").scrollIntoView({behavior:"smooth"});
+}));
+document.getElementById("buy").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const sku = document.getElementById("sku").value || "Calm Pack Guide $27";
+  const n = document.getElementById("n").value, em = document.getElementById("e").value;
+  const orders = JSON.parse(localStorage.getItem("st-orders") || "[]");
+  orders.push({sku, n, em, at:new Date().toISOString()});
+  localStorage.setItem("st-orders", JSON.stringify(orders));
+  location.href = `mailto:emily@therapysausages.com?subject=${encodeURIComponent("Kit order: " + sku)}&body=${encodeURIComponent(n + " " + em + " requests " + sku + ". Please send payment link.")}`;
+});
+</script>
+
+<footer><div class="wrap">
+  <strong>Sausage Therapy / Therapy Sausages</strong> · led by Emily Blue Richards · Gold Coast, Noosa and mobile sessions.<br />
+  Existing live bookings stay at <a href="https://therapysausages.vercel.app/">therapysausages.vercel.app</a>. Enquiries: <a href="mailto:emily@therapysausages.com">emily@therapysausages.com</a>.
+  These pages are interest and payment-request flows. A confirmed booking or digital delivery follows Emily's reply. Not a clinical diagnosis or emergency service. If you are in crisis in Australia call 000 or Lifeline 13 11 14.
+  <br />Ten percent of confirmed paid online orders on this hub is logged for dog welfare and access sessions.
+</div></footer>
+</body></html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Referral engine</title>
+<meta name="description" content="Sausage Therapy online empire elements: dachshund-assisted calm, digital kits, Pack Circle membership, gifts, corporate resets, and giving-first bookings. Led by Emily Blue Richards." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<nav><div class="wrap nav-inner">
+  <a class="brand" href="index.html">Sausage <span>Therapy</span></a>
+  <div class="links">
+    <a href="quiz.html">Quiz</a>
+    <a href="circle.html">Pack Circle</a>
+    <a href="kits.html">Digital kits</a>
+    <a href="gift.html">Gift voucher</a>
+    <a href="corporate.html">Corporate</a>
+    <a href="retreat.html">Retreat</a>
+    <a href="ledger.html">Giving</a>
+    <a href="refer.html">Refer</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <section>
+    <div class="kicker">Self-promoting</div>
+    <h1>A link with your name on it.</h1>
+    <p class="lede">Members and clients share a tagged link. When someone books and names the code, Emily can thank the referrer with $20 off their next session.</p>
+    <form class="panel" id="r">
+      <label>Your name</label><input id="n" required />
+      <p><button class="btn gold" type="submit">Make my link</button></p>
+      <p id="out"></p>
+    </form>
+  </section>
+</main>
+<script>
+document.getElementById("r").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const n = document.getElementById("n").value.trim();
+  const code = n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "pack";
+  const url = location.origin + location.pathname.replace("refer.html", "quiz.html") + "?ref=" + encodeURIComponent(code);
+  document.getElementById("out").innerHTML = `<strong>${code}</strong><br /><a href="${url}">${url}</a><br /><span class="note">Share this. Ask the friend to mention ${code} when they enquire.</span>`;
+});
+</script>
+
+<footer><div class="wrap">
+  <strong>Sausage Therapy / Therapy Sausages</strong> · led by Emily Blue Richards · Gold Coast, Noosa and mobile sessions.<br />
+  Existing live bookings stay at <a href="https://therapysausages.vercel.app/">therapysausages.vercel.app</a>. Enquiries: <a href="mailto:emily@therapysausages.com">emily@therapysausages.com</a>.
+  These pages are interest and payment-request flows. A confirmed booking or digital delivery follows Emily's reply. Not a clinical diagnosis or emergency service. If you are in crisis in Australia call 000 or Lifeline 13 11 14.
+  <br />Ten percent of confirmed paid online orders on this hub is logged for dog welfare and access sessions.
+</div></footer>
+</body></html>

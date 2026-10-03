@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gift a session</title>
+<meta name="description" content="Sausage Therapy online empire elements: dachshund-assisted calm, digital kits, Pack Circle membership, gifts, corporate resets, and giving-first bookings. Led by Emily Blue Richards." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<nav><div class="wrap nav-inner">
+  <a class="brand" href="index.html">Sausage <span>Therapy</span></a>
+  <div class="links">
+    <a href="quiz.html">Quiz</a>
+    <a href="circle.html">Pack Circle</a>
+    <a href="kits.html">Digital kits</a>
+    <a href="gift.html">Gift voucher</a>
+    <a href="corporate.html">Corporate</a>
+    <a href="retreat.html">Retreat</a>
+    <a href="ledger.html">Giving</a>
+    <a href="refer.html">Refer</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <section>
+    <div class="kicker">Gift revenue</div>
+    <h1>Print a session voucher tonight.</h1>
+    <p class="lede">Individual sessions start at $150. This page builds a voucher you can print or save. It becomes valid when Emily confirms payment.</p>
+    <form class="panel" id="g">
+      <label>From</label><input id="from" required />
+      <label>For</label><input id="to" required />
+      <label>Amount AUD</label><input id="amt" type="number" min="150" value="150" />
+      <label>Note</label><textarea id="note" rows="3">A pack session, when you want it.</textarea>
+      <p><button class="btn gold" type="submit">Build voucher</button></p>
+    </form>
+    <article class="panel" id="voucher" style="margin-top:16px; display:none">
+      <div class="tag">Sausage Therapy voucher</div>
+      <h2 id="vh"></h2>
+      <p id="vb"></p>
+      <p class="note">Code <strong id="vc"></strong> · Valid after payment confirmation to emily@therapysausages.com</p>
+      <button class="btn" onclick="window.print()">Print or save as PDF</button>
+    </article>
+  </section>
+</main>
+<script>
+document.getElementById("g").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const code = "ST-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+  const from = document.getElementById("from").value, to = document.getElementById("to").value, amt = document.getElementById("amt").value, note = document.getElementById("note").value;
+  document.getElementById("vh").textContent = "$" + amt + " for " + to;
+  document.getElementById("vb").textContent = "From " + from + ". " + note;
+  document.getElementById("vc").textContent = code;
+  document.getElementById("voucher").style.display = "block";
+  const gifts = JSON.parse(localStorage.getItem("st-gifts") || "[]");
+  gifts.push({from, to, amt, code, at:new Date().toISOString()});
+  localStorage.setItem("st-gifts", JSON.stringify(gifts));
+  setTimeout(() => { location.href = `mailto:emily@therapysausages.com?subject=${encodeURIComponent("Gift voucher " + code)}&body=${encodeURIComponent(from + " gifted $" + amt + " to " + to + ". Code " + code + ". " + note)}`; }, 400);
+});
+</script>
+
+<footer><div class="wrap">
+  <strong>Sausage Therapy / Therapy Sausages</strong> · led by Emily Blue Richards · Gold Coast, Noosa and mobile sessions.<br />
+  Existing live bookings stay at <a href="https://therapysausages.vercel.app/">therapysausages.vercel.app</a>. Enquiries: <a href="mailto:emily@therapysausages.com">emily@therapysausages.com</a>.
+  These pages are interest and payment-request flows. A confirmed booking or digital delivery follows Emily's reply. Not a clinical diagnosis or emergency service. If you are in crisis in Australia call 000 or Lifeline 13 11 14.
+  <br />Ten percent of confirmed paid online orders on this hub is logged for dog welfare and access sessions.
+</div></footer>
+</body></html>

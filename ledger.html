@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Giving ledger</title>
+<meta name="description" content="Sausage Therapy online empire elements: dachshund-assisted calm, digital kits, Pack Circle membership, gifts, corporate resets, and giving-first bookings. Led by Emily Blue Richards." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<nav><div class="wrap nav-inner">
+  <a class="brand" href="index.html">Sausage <span>Therapy</span></a>
+  <div class="links">
+    <a href="quiz.html">Quiz</a>
+    <a href="circle.html">Pack Circle</a>
+    <a href="kits.html">Digital kits</a>
+    <a href="gift.html">Gift voucher</a>
+    <a href="corporate.html">Corporate</a>
+    <a href="retreat.html">Retreat</a>
+    <a href="ledger.html">Giving</a>
+    <a href="refer.html">Refer</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <section>
+    <div class="kicker">Giving-first</div>
+    <h1>Ten percent, in public.</h1>
+    <p class="lede">Confirmed online orders on this hub allocate 10 percent to dog welfare and access sessions. Log a confirmed amount here so the month stays visible. This is an operating ledger, not an audited charity report.</p>
+    <div class="panel">
+      <p>Illustrative month target <strong>$500</strong> giving.</p>
+      <div class="meter"><span id="bar" style="width:20%"></span></div>
+      <p id="total">Logged giving: $0</p>
+      <form id="add">
+        <label>Confirmed sale AUD</label><input id="sale" type="number" min="1" required />
+        <label>Note</label><input id="note" placeholder="Calm Pack Guide" />
+        <p><button class="btn" type="submit">Log 10 percent</button></p>
+      </form>
+      <ul id="rows"></ul>
+    </div>
+  </section>
+</main>
+<script>
+function render() {
+  const rows = JSON.parse(localStorage.getItem("st-ledger") || "[]");
+  const give = rows.reduce((s, r) => s + r.give, 0);
+  document.getElementById("total").textContent = "Logged giving: $" + give.toFixed(2);
+  document.getElementById("bar").style.width = Math.min(100, (give / 500) * 100) + "%";
+  document.getElementById("rows").innerHTML = rows.map(r => `<li>$${r.sale} sale → $${r.give.toFixed(2)} · ${r.note} · ${r.at.slice(0,10)}</li>`).join("");
+}
+document.getElementById("add").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const sale = +document.getElementById("sale").value;
+  const rows = JSON.parse(localStorage.getItem("st-ledger") || "[]");
+  rows.push({sale, give: sale * 0.1, note: document.getElementById("note").value || "online", at: new Date().toISOString()});
+  localStorage.setItem("st-ledger", JSON.stringify(rows));
+  render();
+});
+render();
+</script>
+
+<footer><div class="wrap">
+  <strong>Sausage Therapy / Therapy Sausages</strong> · led by Emily Blue Richards · Gold Coast, Noosa and mobile sessions.<br />
+  Existing live bookings stay at <a href="https://therapysausages.vercel.app/">therapysausages.vercel.app</a>. Enquiries: <a href="mailto:emily@therapysausages.com">emily@therapysausages.com</a>.
+  These pages are interest and payment-request flows. A confirmed booking or digital delivery follows Emily's reply. Not a clinical diagnosis or emergency service. If you are in crisis in Australia call 000 or Lifeline 13 11 14.
+  <br />Ten percent of confirmed paid online orders on this hub is logged for dog welfare and access sessions.
+</div></footer>
+</body></html>

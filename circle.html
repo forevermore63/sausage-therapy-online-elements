@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pack Circle membership</title>
+<meta name="description" content="Sausage Therapy online empire elements: dachshund-assisted calm, digital kits, Pack Circle membership, gifts, corporate resets, and giving-first bookings. Led by Emily Blue Richards." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<nav><div class="wrap nav-inner">
+  <a class="brand" href="index.html">Sausage <span>Therapy</span></a>
+  <div class="links">
+    <a href="quiz.html">Quiz</a>
+    <a href="circle.html">Pack Circle</a>
+    <a href="kits.html">Digital kits</a>
+    <a href="gift.html">Gift voucher</a>
+    <a href="corporate.html">Corporate</a>
+    <a href="retreat.html">Retreat</a>
+    <a href="ledger.html">Giving</a>
+    <a href="refer.html">Refer</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="kicker">Recurring revenue</div>
+      <h1>Pack Circle. $19 a month.</h1>
+      <p class="lede">A small always-on membership for people who want the dogs in their week even when they cannot book a visit. Sunday pack note, one calm ritual, member pricing on live sessions, and a vote on which rescue or access session the giving ledger funds next.</p>
+      <ul>
+        <li>Member rate: $20 off individual sessions from $150.</li>
+        <li>Early notice of corporate and boat dates.</li>
+        <li>Cancel any time by email. No lock-in.</li>
+      </ul>
+    </div>
+    <form class="panel" id="join">
+      <h2>Request membership</h2>
+      <label>Name</label><input id="n" required />
+      <label>Email</label><input id="e" type="email" required />
+      <label>Start</label>
+      <select id="p"><option>Monthly $19</option><option>Founding year $190</option></select>
+      <p><button class="btn gold" type="submit">Email my join request</button></p>
+      <p class="note" id="msg"></p>
+    </form>
+  </section>
+</main>
+<script>
+document.getElementById("join").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const n = document.getElementById("n").value, em = document.getElementById("e").value, p = document.getElementById("p").value;
+  const members = JSON.parse(localStorage.getItem("st-circle") || "[]");
+  members.push({n, em, p, at:new Date().toISOString()});
+  localStorage.setItem("st-circle", JSON.stringify(members));
+  location.href = `mailto:emily@therapysausages.com?subject=${encodeURIComponent("Pack Circle join: " + p)}&body=${encodeURIComponent(n + " " + em + " wants " + p + ". Please send payment details.")}`;
+  document.getElementById("msg").textContent = "Join request saved on this device and your email app should be open.";
+});
+</script>
+
+<footer><div class="wrap">
+  <strong>Sausage Therapy / Therapy Sausages</strong> · led by Emily Blue Richards · Gold Coast, Noosa and mobile sessions.<br />
+  Existing live bookings stay at <a href="https://therapysausages.vercel.app/">therapysausages.vercel.app</a>. Enquiries: <a href="mailto:emily@therapysausages.com">emily@therapysausages.com</a>.
+  These pages are interest and payment-request flows. A confirmed booking or digital delivery follows Emily's reply. Not a clinical diagnosis or emergency service. If you are in crisis in Australia call 000 or Lifeline 13 11 14.
+  <br />Ten percent of confirmed paid online orders on this hub is logged for dog welfare and access sessions.
+</div></footer>
+</body></html>
